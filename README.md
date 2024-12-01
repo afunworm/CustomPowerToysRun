@@ -2,6 +2,10 @@
 
 # Custom PowerToys Run | Run Your Custom PowerToys Run Command
 
+### Limitation
+
+Only tested on x64 Windows.
+
 ### Screenshots
 
 To be coming.
