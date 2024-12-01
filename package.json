@@ -1,0 +1,19 @@
+{
+	"name": "custom-powertoys-run",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"compile": "pkg index.js --targets node18-win-x64 --output ./dist/processor.exe",
+		"copy": "node postCompile.js",
+		"build": "npm run compile && npm run copy"
+	},
+	"author": "afunworm",
+	"license": "MIT",
+	"dependencies": {
+		"node-notifier": "^10.0.1"
+	},
+	"devDependencies": {
+		"fs-extra": "^11.2.0"
+	}
+}

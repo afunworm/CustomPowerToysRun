@@ -1,0 +1,14 @@
+{
+	"ID": "73CDD8F1B7844D2DB94BAED5980C510B",
+	"ActionKeyword": ":",
+	"IsGlobal": true,
+	"Name": "Custom Powertoys Run",
+	"Author": "afunworm",
+	"Version": "1.0.0",
+	"Language": "csharp",
+	"Website": "https://me.byh.uy/",
+	"ExecuteFileName": "Wrapper.dll",
+	"IcoPathDark": "icon.png",
+	"IcoPathLight": "icon.png",
+	"DynamicLoading": false
+}

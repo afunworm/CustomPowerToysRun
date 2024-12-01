@@ -1,0 +1,4 @@
+C:\www\PowerToys\wrapper\Wrapper\obj\Debug\net8.0-windows\Wrapper.GeneratedMSBuildEditorConfig.editorconfig
+C:\www\PowerToys\wrapper\Wrapper\obj\Debug\net8.0-windows\Wrapper.AssemblyInfoInputs.cache
+C:\www\PowerToys\wrapper\Wrapper\obj\Debug\net8.0-windows\Wrapper.AssemblyInfo.cs
+C:\www\PowerToys\wrapper\Wrapper\obj\Debug\net8.0-windows\Wrapper.csproj.CoreCompileInputs.cache
