@@ -40,3 +40,4 @@ C:\www\PowerToys\wrapper\Wrapper\obj\x64\Debug\net8.0-windows\Wrapper.dll
 C:\www\PowerToys\wrapper\Wrapper\obj\x64\Debug\net8.0-windows\refint\Wrapper.dll
 C:\www\PowerToys\wrapper\Wrapper\obj\x64\Debug\net8.0-windows\Wrapper.pdb
 C:\www\PowerToys\wrapper\Wrapper\obj\x64\Debug\net8.0-windows\ref\Wrapper.dll
+C:\www\PowerToys\wrapper\Wrapper\obj\x64\Debug\net8.0-windows\Wrapper.sourcelink.json
