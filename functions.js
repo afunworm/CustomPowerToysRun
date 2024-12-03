@@ -113,15 +113,18 @@ module.exports = class {
 			: run(command, { windowsHide });
 	}
 
-	open(targets) {
+	async open(targets, params = "") {
 		const start = process.platform == "darwin" ? "open" : process.platform == "win32" ? "start" : "xdg-open";
 		let shellCommand = "";
 
 		targets = targets.split(",").map((target) => {
-			shellCommand += `${start} '${target}';`;
+			shellCommand += `${start} '${target}${params.trim() ? params.trim() : ""}';`;
+			return shellCommand;
 		});
+		console.log(shellCommand);
 
-		return this.run(shellCommand);
+		await this.run(shellCommand);
+		return targets;
 	}
 
 	getPluginDir() {
