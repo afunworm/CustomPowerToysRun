@@ -121,7 +121,6 @@ module.exports = class {
 			shellCommand += `${start} '${target}${params.trim() ? params.trim() : ""}';`;
 			return shellCommand;
 		});
-		console.log(shellCommand);
 
 		await this.run(shellCommand);
 		return targets;
