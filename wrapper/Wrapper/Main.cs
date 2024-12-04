@@ -73,7 +73,7 @@ namespace PowerToysRunPlugin
 
             // Add the default command, only if there's no exact match from the commandList
             bool exactMatch = commandList.Any(cmd => cmd.command == userInput);
-            if (!exactMatch)
+            if (!exactMatch && userInput != "")
             {
                 results.Add(new Result
                 {
