@@ -14,11 +14,17 @@ namespace PowerToysRunPlugin
         public string Description => "Execute custom PowerToys Run commands";
 
         private string pluginDirectory;
+        private string actionKeyword;
         private List<(string command, string description)> commandList = new();
         public void Init(PluginInitContext context)
         {
             // Store the plugin directory path
             pluginDirectory = context.CurrentPluginMetadata.PluginDirectory;
+
+            
+            // Fetch the action keyword from the current plugin metadata
+            // If no keywords found, fall back to ":"
+            actionKeyword = context.CurrentPluginMetadata.ActionKeyword ?? ":";
 
             // Load commands from the commands.txt file
             var commandsFilePath = Path.Combine(pluginDirectory, "commands.txt");
@@ -51,11 +57,18 @@ namespace PowerToysRunPlugin
 
         public List<Result> Query(Query query)
         {
+
             // Get main processor.exe path
             var exePath = Path.Combine(pluginDirectory, "processor.exe");
 
             // Get userInput
-            string userInput = query.RawQuery.TrimStart(':').ToLowerInvariant();
+            string userInput = query.RawQuery;
+            if (!string.IsNullOrEmpty(actionKeyword) && userInput.StartsWith(actionKeyword))
+            {
+                userInput = userInput.Substring(actionKeyword.Length);
+            }
+
+            userInput = userInput.Trim().ToLowerInvariant();
             var results = new List<Result>();
 
             // Prioritize commands that start with the input
