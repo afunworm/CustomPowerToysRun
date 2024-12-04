@@ -13,9 +13,8 @@ const actions = {
 
 /**
  * Checking for input
- * Replace PowerToys Run's Direct Activation Command with ""
  */
-const input = argv.slice(2).join(" ").replace(":", "").trim();
+const input = argv.slice(2).join(" ").trim();
 if (!input) {
 	console.log("User input required.");
 	process.exit();
@@ -47,6 +46,8 @@ if (!input) {
 #
 # command
 #         The name of the command. For example, if your command is demo, you can invoke it using :demo in PowerToys Run
+#         Note: 'default' is the reserved keyword for when an action cannot be found. You can use this to set up things
+                like Google Search, ChatGPT, etc.
 #
 # action
 #         What action to take when the command is invoked. There are 3 supported actions at the moment:
@@ -70,6 +71,7 @@ if (!input) {
 default | open | https://google.com/search?q= | 1 | Search Google
 demo | shell | Add-Type -AssemblyName System.Windows.Forms %pipe% Out-Null; [System.Windows.Forms.MessageBox]::Show("This dialog was generated through a powershell command associated with the command :demo. Isn't this cool?",'Demo','OK','Question') | 0 | Run demo shell command
 config | open | ${commandFile} | 0 | Open Custom PowerToys Run configuration file
+plugin | open | ${pluginDir} | 0 | Open Custom PowerToys Run directory
 facebook,fb | open | https://facebook.com/ | 0 | Open Facebook in the default browser
 twitter,x | open | https://x.com/ | 0 | Open X in the default browser
 yt,youtube | open | https://youtube.com/ | 0 | Open Youtube in the default browser

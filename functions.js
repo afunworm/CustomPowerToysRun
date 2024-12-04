@@ -61,7 +61,8 @@ module.exports = class {
 		if (!inputCommand) {
 			return {
 				command: "default",
-				params: input.split(" ").length ? input.split(" ")[1].trim() : "",
+				// If command is default, send the input back as parameters
+				params: input.trim(),
 			};
 		}
 

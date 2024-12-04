@@ -90,7 +90,7 @@ namespace PowerToysRunPlugin
             {
                 results.Add(new Result
                 {
-                    Title = $"{query.RawQuery.TrimStart(':')}",
+                    Title = $"{userInput}",
                     SubTitle = $"Run Custom PowerToys Run Command",
                     Action = _ =>
                     {
@@ -100,7 +100,7 @@ namespace PowerToysRunPlugin
                             var startInfo = new ProcessStartInfo
                             {
                                 FileName = exePath,
-                                Arguments = query.RawQuery,
+                                Arguments = userInput,
                                 CreateNoWindow = true,
                                 UseShellExecute = false,
                                 WindowStyle = ProcessWindowStyle.Hidden
