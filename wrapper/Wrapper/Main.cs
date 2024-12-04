@@ -58,47 +58,59 @@ namespace PowerToysRunPlugin
             string userInput = query.RawQuery.TrimStart(':').ToLowerInvariant();
             var results = new List<Result>();
 
-            // Filter commands that start with the user input
-            var matchingCommands = commandList
-                .Where(cmd => cmd.command.Contains(userInput))
+            // Prioritize commands that start with the input
+            var startsWithMatches = commandList
+                .Where(cmd => cmd.command.StartsWith(userInput))
                 .ToList();
 
-            // Add the default command
-            results.Add(new Result
+            // Include commands that contain the input but do not start with it
+            var containsMatches = commandList
+                .Where(cmd => !cmd.command.StartsWith(userInput) && cmd.command.Contains(userInput))
+                .ToList();
+
+            // Filter commands that start with the user input
+            var matchingCommands = startsWithMatches.Concat(containsMatches);
+
+            // Add the default command, only if there's no exact match from the commandList
+            bool exactMatch = commandList.Any(cmd => cmd.command == userInput);
+            if (!exactMatch)
             {
-                Title = $"{query.RawQuery}",
-                SubTitle = $"Run Custom PowerToys Run Command",
-                Action = _ =>
+                results.Add(new Result
                 {
-
-                    try
+                    Title = $"{query.RawQuery.TrimStart(':')}",
+                    SubTitle = $"Run Custom PowerToys Run Command",
+                    Action = _ =>
                     {
-                        var startInfo = new ProcessStartInfo
+
+                        try
                         {
-                            FileName = exePath,
-                            Arguments = query.RawQuery,
-                            CreateNoWindow = true,
-                            UseShellExecute = false,
-                            WindowStyle = ProcessWindowStyle.Hidden
-                        };
+                            var startInfo = new ProcessStartInfo
+                            {
+                                FileName = exePath,
+                                Arguments = query.RawQuery,
+                                CreateNoWindow = true,
+                                UseShellExecute = false,
+                                WindowStyle = ProcessWindowStyle.Hidden
+                            };
 
-                        Process.Start(startInfo);
+                            Process.Start(startInfo);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle exceptions as needed
+                            Console.WriteLine($"Failed to start process: {ex.Message}");
+                        }
+                        return true;
                     }
-                    catch (Exception ex)
-                    {
-                        // Handle exceptions as needed
-                        Console.WriteLine($"Failed to start process: {ex.Message}");
-                    }
-                    return true;
-                }
-            });
+                });
+            }
 
             // Additional suggestion for matching commands
             foreach (var (command, description) in matchingCommands)
             {
                 results.Add(new Result
                 {
-                    Title = $":{command}",
+                    Title = $"{command}",
                     SubTitle = description,
                     Action = _ =>
                     {

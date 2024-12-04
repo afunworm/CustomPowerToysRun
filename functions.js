@@ -57,10 +57,11 @@ module.exports = class {
 		for (let command of commandList) {
 			if (input.toLowerCase().startsWith(command.toLowerCase())) inputCommand = command;
 		}
+
 		if (!inputCommand) {
 			return {
-				command: "",
-				params: "",
+				command: "default",
+				params: input.split(" ").length ? input.split(" ")[1].trim() : "",
 			};
 		}
 

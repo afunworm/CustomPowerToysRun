@@ -67,6 +67,7 @@ if (!input) {
 #
 ############################################################################################################################
 
+default | open | https://google.com/search?q= | 1 | Search Google
 demo | shell | Add-Type -AssemblyName System.Windows.Forms %pipe% Out-Null; [System.Windows.Forms.MessageBox]::Show("This dialog was generated through a powershell command associated with the command :demo. Isn't this cool?",'Demo','OK','Question') | 0 | Run demo shell command
 config | open | ${commandFile} | 0 | Open Custom PowerToys Run configuration file
 facebook,fb | open | https://facebook.com/ | 0 | Open Facebook in the default browser
@@ -133,14 +134,21 @@ social | open | https://facebook.com/,https://reddit.com/,https://x.com | 0 | Op
 	// If shell_pass_parameters is disabled, don't forward params
 	if (commandData.shell_pass_paramters == 0) params = "";
 
-	// Trigger action
+	// Trigger action, if it's found
 	if (typeof actions[commandData.action.toLowerCase()]) {
 		await actions[commandData.action.toLowerCase()].call(null, { targets: commandData.action_target, params });
 		await helper.log(`Action ${commandData.action} run successfully.`);
 		helper.notify(`Completed: ${commandData.description || input}`);
 	} else {
-		console.log("No action found.");
-		await helper.log(`No action found for  ${commandData.action} run successfully.`);
-		await helper.notify(`Failed: ${commandData.description || input}`);
+		// No action found, check if default is available
+		if (typeof actions.default) {
+			await actions.default.call(null, { targets: commandData.action_target, params });
+			await helper.log(`Default action run successfully.`);
+			helper.notify(`Completed: default action.`);
+		} else {
+			console.log("No action found.");
+			await helper.log(`No action found for  ${commandData.action} run successfully.`);
+			await helper.notify(`Failed: ${commandData.description || input}`);
+		}
 	}
 })();
